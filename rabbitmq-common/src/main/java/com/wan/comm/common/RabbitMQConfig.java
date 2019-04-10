@@ -39,6 +39,15 @@ public class RabbitMQConfig {
     @Value("${spring.rabbitmq.workExchange}")
     private String workExchange;
 
+    @Value("${spring.rabbitmq.delayQueueName}")
+    private String delayQueueName;
+
+    @Value("${spring.rabbitmq.delayRoutingKey}")
+    private String delayRoutingKey;
+
+    @Value("${spring.rabbitmq.delayExchange}")
+    private String delayExchange;
+
     @Value("${spring.rabbitmq.errorQueueName}")
     private String errorQueueName;
 
@@ -140,6 +149,14 @@ public class RabbitMQConfig {
     DirectExchange errorExchange(){return new DirectExchange(errorExchange);}
 
     /**
+     * 延迟交换器
+     * @return
+     */
+    @Bean
+    DirectExchange delayExchange(){return new DirectExchange(delayExchange);}
+
+
+    /**
      * 工作队列，默认正常情况下从该队列消费消息
      *
      * @return
@@ -160,6 +177,20 @@ public class RabbitMQConfig {
     }
 
     /**
+     * 延迟列队
+     * @return
+     */
+    @Bean
+    Queue delayQueue() {
+        //配置该队列中消息多久以后进入workQueue队列
+        return QueueBuilder.durable(delayQueueName)
+                .withArgument("x-dead-letter-exchange",workExchange)
+                .withArgument("x-dead-letter-routing-key",workRoutingKey)
+                //设置消息死亡时间，单位毫秒
+                .withArgument("x-message-ttl",10000).build();
+    }
+
+    /**
      * 队列与交换器绑定
      * @param workQueue
      * @param workExchange
@@ -173,6 +204,11 @@ public class RabbitMQConfig {
     @Bean
     Binding errorQueuqBindingExchange(Queue errorQueue,DirectExchange errorExchange){
         return BindingBuilder.bind(errorQueue).to(errorExchange).with(errorRoutingKey);
+    }
+
+    @Bean
+    Binding delayQueuqBindingExchange(Queue delayQueue,DirectExchange delayExchange){
+        return BindingBuilder.bind(delayQueue).to(delayExchange).with(delayRoutingKey);
     }
 
     @Bean
