@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="controller" />
+        <module name="entity" />
+        <module name="publisher" />
+        <module name="rabbitmq-common" />
+        <module name="rabbitmq-consumer" />
+        <module name="rabbitmq-publisher" />
+        <module name="server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common" target="1.8" />
+      <module name="controller" target="1.8" />
+      <module name="entity" target="1.8" />
+      <module name="publisher" target="1.8" />
+      <module name="rabbitMq" target="1.8" />
+      <module name="rabbitmq-common" target="1.8" />
+      <module name="rabbitmq-consumer" target="1.8" />
+      <module name="rabbitmq-publisher" target="1.8" />
+      <module name="server" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
