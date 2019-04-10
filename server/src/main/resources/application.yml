@@ -24,6 +24,9 @@ spring:
     workQueueName: rabbit-queue-work
     workRoutingKey: rabbit-routingkey-work
     workExchange: rabbit-exchange-work
+    delayQueueName: rabbit-queue-delay
+    delayRoutingKey: rabbit-routingkey-delay
+    delayExchange: rabbit-exchange-delay
     errorQueueName: rabbit-queue-error
     errorRoutingKey: rabbit-routingkey-error
     errorExchange: rabbit-exchange-error
