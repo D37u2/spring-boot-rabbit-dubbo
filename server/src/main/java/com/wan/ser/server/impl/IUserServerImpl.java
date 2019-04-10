@@ -27,6 +27,12 @@ public class IUserServerImpl implements IUserServer {
     @Value("${spring.rabbitmq.workExchange}")
     private String workExchange;
 
+    @Value("${spring.rabbitmq.delayRoutingKey}")
+    private String delayRoutingKey;
+
+    @Value("${spring.rabbitmq.delayExchange}")
+    private String delayExchange;
+
     @Override
     public void pushNoticeToWX(String userId) {
 
@@ -35,6 +41,6 @@ public class IUserServerImpl implements IUserServer {
         map.put("phone","111111111");
 
         //调用userRabbitMQPublisher发送消息队列，通过路由键和交换器去匹配对应的队列
-        userRabbitMQPublisher.pushNoticeToWX(workExchange,workRoutingKey,map);
+        userRabbitMQPublisher.pushNoticeToWX(delayExchange,delayRoutingKey,map);
     }
 }
